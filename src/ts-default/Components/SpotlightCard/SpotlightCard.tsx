@@ -5,6 +5,7 @@ interface Position {
   x: number;
   y: number;
 }
+
 interface SpotlightCardProps extends React.PropsWithChildren {
   className?: string;
   spotlightColor?: `rgba(${number}, ${number}, ${number}, ${number})`;
@@ -29,8 +30,27 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
     divRef.current.style.setProperty('--spotlight-color', spotlightColor);
   };
 
+  const handleMouseEnter: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.currentTarget.style.transform = "scale(1.04)";
+    e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.25)";
+  };
+
+  const handleMouseLeave: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.currentTarget.style.transform = "scale(1)";
+    e.currentTarget.style.boxShadow = "none";
+  };
+
   return (
-    <div ref={divRef} onMouseMove={handleMouseMove} className={`card-spotlight ${className}`}>
+    <div
+      ref={divRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+      }}
+      className={`card-spotlight ${className}`}
+    >
       {children}
     </div>
   );

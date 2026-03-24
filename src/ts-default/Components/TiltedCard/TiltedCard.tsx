@@ -20,9 +20,9 @@ interface TiltedCardProps {
 }
 
 const springValues: SpringOptions = {
-  damping: 30,
-  stiffness: 100,
-  mass: 2
+  damping: 35,
+  stiffness: 120,
+  mass: 1.8
 };
 
 export default function TiltedCard({
@@ -113,7 +113,11 @@ export default function TiltedCard({
           height: imageHeight,
           rotateX,
           rotateY,
-          scale
+          scale,
+          transformPerspective: 1000,
+          boxShadow: scale.get() > 1
+            ? "0 20px 40px rgba(0,0,0,0.25)"
+            : "0 5px 15px rgba(0,0,0,0.1)"
         }}
       >
         <motion.img

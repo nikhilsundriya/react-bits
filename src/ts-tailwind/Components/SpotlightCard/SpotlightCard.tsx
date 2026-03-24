@@ -37,12 +37,16 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
     setOpacity(0);
   };
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     setOpacity(0.6);
+    e.currentTarget.style.transform = "scale(1.04)";
+    e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.25)";
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     setOpacity(0);
+    e.currentTarget.style.transform = "scale(1)";
+    e.currentTarget.style.boxShadow = "none";
   };
 
   return (
@@ -53,10 +57,13 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      style={{
+        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+      }}
       className={`relative rounded-3xl border border-neutral-800 bg-neutral-900 overflow-hidden p-8 ${className}`}
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500 ease-in-out"
         style={{
           opacity,
           background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`
